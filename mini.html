@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8"><title>minimal test 2</title></head>
+<body>
+<x-foo id="f1"></x-foo>
+<pre id="out"></pre>
+<script>
+  var out = document.getElementById('out');
+  function log(s) { out.textContent += '\n' + s; }
+  window.addEventListener('error', function (e) { log('ERROR: ' + e.message + ' @' + e.lineno); });
+
+  function Foo() {
+    log('ctor enter');
+    try {
+      this._root = this.attachShadow({ mode: 'open' });
+      var s = document.createElement('style');
+      s.textContent = '.x{color:red}';
+      this._root.appendChild(s);
+      var d = document.createElement('button');
+      d.className = 'x-close';
+      this._root.appendChild(d);
+      log('shadow built, close=' + !!this._root.querySelector('.x-close'));
+    } catch (e) { log('FAIL: ' + e.message); }
+  }
+  Object.setPrototypeOf(Foo.prototype, HTMLElement.prototype);
+  customElements.define('x-foo', Foo);
+  log('defined');
+  setTimeout(function () {
+    var el = document.getElementById('f1');
+    log('after: shadow=' + !!el.shadowRoot + ' closeBtn=' + !!el._root.querySelector('.x-close'));
+  }, 300);
+</script>
+</body>
+</html>

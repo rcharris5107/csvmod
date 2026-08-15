@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8"><title>CsvMod debug</title></head>
+<body style="background:#fff;color:#000;font-family:monospace;font-size:12px;padding:12px">
+<h2>CsvMod runtime diagnostics</h2>
+<pre id="out">loading…</pre>
+<csvmod-importer id="ci" theme="dark"></csvmod-importer>
+
+<script>
+  window.__cmTrace = [];
+</script>
+<script src="embed/csvmod.embed.js"></script>
+<script>
+  var out = document.getElementById("out");
+  function log(s) { out.textContent += '\n' + s; }
+  window.addEventListener('error', function (e) {
+    log('WINDOW ERROR: ' + e.message + ' @' + e.filename.split('/').pop() + ':' + e.lineno);
+  });
+
+  setTimeout(function () {
+    var el = document.getElementById('ci');
+    log('\n== element ==');
+    log('tag: ' + el.tagName + ' | upgraded: ' + !!(el._ && el._.root));
+    if (!el._) { log('el._ MISSING'); return; }
+    log('shadow root: ' + !!el._.root);
+    log('root childNodes: ' + el._.root.childNodes.length);
+    var s = el._;
+    log('$ keys: ' + Object.keys(s).join(', '));
+    Object.keys(s).forEach(function (k) {
+      var v = s[k];
+      if (!k || k.charAt(0) !== '$') return;
+      log('  $.' + k + ' -> ' + (v == null ? String(v) : (v.nodeType ? 'NODE ' + v.tagName + '.' + v.className : (Array.isArray(v) ? 'ARRAY(' + v.length + ')' : typeof v))));
+    });
+    log('\n== parse test ==');
+    try {
+      el.schema = { fields: [
+        { key: 'email', label: 'Email Address', type: 'email', required: true },
+        { key: 'age', label: 'Age', type: 'number' }
+      ]};
+      el.ingestString('Email Address,Age\nbob@example.com,34\ncarol@@example.com,29\n');
+      log('ingestString called OK');
+    } catch (e) { log('ingestString THREW: ' + e.message); }
+    setTimeout(function () {
+      log('TRACE: ' + (window.__cmTrace || []).join(' | '));
+      log('parsed: ' + el._.parsed);
+      log('rows: ' + (el._.rows ? el._.rows.length : 'n/a'));
+      log('mapping: ' + JSON.stringify(el._.mapping));
+      log('prof: ' + JSON.stringify(el._.prof));
+      log('DONE');
+    }, 1200);
+  }, 800);
+</script>
+</body>
+</html>

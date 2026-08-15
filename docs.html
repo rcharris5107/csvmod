@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CsvMod — Developer Documentation</title>
+  <meta name="description" content="CsvMod SDK reference: installation, schema, events, AI configuration, OpenClaw automation.">
+  <link rel="stylesheet" href="site.css">
+</head>
+<body>
+
+<nav class="nav">
+  <div class="logo">Csv<b>Mod</b></div>
+  <div class="links">
+    <a href="index.html">Home</a>
+    <a href="index.html#demo">Live demo</a>
+    <a href="pricing.html">Pricing</a>
+  </div>
+  <a class="cta" href="index.html#demo">Try the demo</a>
+</nav>
+
+<div class="pg">
+  <h1>Developer documentation</h1>
+  <p class="lede">@csvmod/embed · SDK reference for the embeddable importer.</p>
+
+  <h2>Installation</h2>
+  <p>Copy the single self-contained file to your CDN and load it. No build step, no iframe, no dependencies:</p>
+  <pre><code>&lt;script src="https://cdn.csvmod.com/csvmod.embed.js"&gt;&lt;/script&gt;
+
+&lt;csvmod-importer license-key="pk_live_123456789" theme="auto"&gt;&lt;/csvmod-importer&gt;</code></pre>
+  <p>npm packages for bundler workflows are on the roadmap:</p>
+  <pre><code>import { CSVMod } from '@csvmod/embed';
+const importer = new CSVMod({
+  licenseKey: 'pk_live_123456789',
+  theme: 'auto',
+  el: '#importer',
+  schema: { fields: [
+    { key: 'full_name', label: 'Full Name', required: true },
+    { key: 'email', label: 'Email Address', required: true, type: 'email' },
+    { key: 'role', label: 'User Role', type: 'select', options: ['Admin', 'Member'] }
+  ]},
+  onComplete: async (data) => {
+    console.log('Cleaned Rows:', data.validRows);
+  }
+});
+importer.open();</code></pre>
+  <div class="note">The same <code>CSVMod</code> class is exposed as a global in the script-tag build; <code>CsvMod.create(options)</code> is an alias for it.</div>
+
+  <h2>Schema reference</h2>
+  <table>
+    <thead><tr><th>Option</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
+    <tbody>
+      <tr><td><code>key</code></td><td>string</td><td>—</td><td>Output key on the delivered row objects.</td></tr>
+      <tr><td><code>label</code></td><td>string</td><td>key</td><td>Human label shown in mapping + grid, used for fuzzy matching.</td></tr>
+      <tr><td><code>type</code></td><td>string</td><td>string</td><td>One of <code>string | email | number | boolean | date | select | unique</code>.</td></tr>
+      <tr><td><code>required</code></td><td>bool</td><td>false</td><td>Row is invalid if the mapped column is empty.</td></tr>
+      <tr><td><code>options</code></td><td>string[]</td><td>—</td><td>Allowed values for <code>select</code>; case-insensitive with auto-correction.</td></tr>
+    </tbody>
+  </table>
+
+  <h2>Events &amp; callbacks</h2>
+  <table>
+    <thead><tr><th>Hook</th><th>Signature</th><th>When</th></tr></thead>
+    <tbody>
+      <tr><td><code>onComplete</code></td><td><code>(data) =&gt; void | Promise</code></td><td>Clean rows confirmed by the user.</td></tr>
+      <tr><td><code>csvmod-complete</code></td><td><code>CustomEvent.detail</code></td><td>DOM event, same payload as onComplete.</td></tr>
+    </tbody>
+  </table>
+  <p>Payload shape:</p>
+  <pre><code>{
+  validRows: [{ key: value, ... }, ...], // clean, mapped rows
+  rejected: 3,             // rows the user chose to skip
+  total: 12,               // data rows in the file
+  meta: {
+    licenseKey: "pk_live_...",
+    ai: true,               // DeepSeek was configured
+    delimiter: ",",         // sniffed
+    encoding: "UTF-8",      // sniffed
+    parseMs: 14,
+    worker: "web-worker"    // or "main-thread" fallback
+  }
+}</code></pre>
+
+  <h2>AI orchestration (DeepSeek)</h2>
+  <p>CsvMod detects AI features automatically when a key is configured:</p>
+  <pre><code>CsvMod.configureAI({
+  apiKey: 'sk-...',
+  baseURL: 'https://api.deepseek.com',  // SSE / compatible endpoint ok
+  model: 'deepseek-chat'                // deepseek-reasoner also supported
+});</code></pre>
+  <ul>
+    <li><b>Schema mapping</b> — headers + sample rows are sent; the model returns suggested column mappings with confidence, shown as green/amber/red dots.</li>
+    <li><b>Error repair</b> — the "✨ AI Fix Common Errors" button batches dirty cells, lets the model propose repairs, and applies the confident ones.</li>
+  </ul>
+  <div class="note">Without a key, deterministic local rules cover emails, numbers, booleans, dates and enums — so the demo and self-hosted installs degrade gracefully.</div>
+
+  <h2>Server-side automation (OpenClaw)</h2>
+  <p>For scheduled or long-running work, the <code>@csvmod/openclaw</code> runner consumes the same schema and replayable file events. See the bundled example in <code>server/</code> of this repo. Typical jobs: nightly de-duplication, phone/normalization sweeps, or re-ingesting files that failed a downstream webhook.</p>
+
+  <h2>Browser support</h2>
+  <ul>
+    <li>Chrome/Edge/Firefox/Safari current + 1 major version.</li>
+    <li>Web Components and <code>TextEncoder</code> required; the parser degrades to main-thread if <code>Worker</code> is unavailable.</li>
+    <li>Shadow DOM guarantees zero style leakage in both directions.</li>
+  </ul>
+
+  <h2>Roadmap</h2>
+  <ul>
+    <li>Un-pivot / matrix-to-columns transform.</li>
+    <li>Excel (<code>.xlsx</code>) ingestion via SheetJS core.</li>
+    <li>Inline cell editing with re-validation.</li>
+    <li>Multi-sheet and fetch-from-URL sources.</li>
+  </ul>
+</div>
+
+<footer>
+  <div class="logo" style="font-weight:800;color:var(--text)">Csv<b style="color:var(--accent2)">Mod</b></div>
+  <p>Embeddable imports · <a href="index.html">Home</a> · <a href="pricing.html">Pricing</a> · © 2026 CsvMod</p>
+</footer>
+
+</body>
+</html>

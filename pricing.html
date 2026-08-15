@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CsvMod — Pricing</title>
+  <meta name="description" content="CsvMod pricing: flat monthly + 4¢/row usage. Free to start, self-host friendly, no per-seat games.">
+  <link rel="stylesheet" href="site.css">
+</head>
+<body>
+
+<nav class="nav">
+  <div class="logo">Csv<b>Mod</b></div>
+  <div class="links">
+    <a href="index.html">Home</a>
+    <a href="index.html#demo">Live demo</a>
+    <a href="docs.html">Docs</a>
+  </div>
+  <a class="cta" href="index.html#demo">Try the demo</a>
+</nav>
+
+<div class="pg">
+  <h1>Pricing</h1>
+  <p class="lede">Flat monthly platform fee + 4¢ per imported row. No per-seat games, no annual lock-in, no enterprise roundabout just to read the price.</p>
+
+  <div class="pricing">
+    <div class="plan">
+      <h3>Starter</h3>
+      <div class="price">$0<small>/mo</small></div>
+      <p>For side projects &amp; evaluation</p>
+      <ul>
+        <li>1,000 rows / month</li>
+        <li>All 4 import steps</li>
+        <li>Local repair rules (no API key)</li>
+        <li>Community support</li>
+      </ul>
+      <a class="btn ghost" href="index.html#demo">Try it</a>
+    </div>
+
+    <div class="plan featured">
+      <h3>Pro</h3>
+      <div class="price">$99<small>/mo + 4¢/row</small></div>
+      <p>For growing SaaS teams</p>
+      <ul>
+        <li>100,000 rows / month included</li>
+        <li>DeepSeek AI mapping &amp; repair</li>
+        <li>Webhook + <code>csvmod-complete</code> events</li>
+        <li>Custom branding &amp; themes</li>
+        <li>Slack / email support</li>
+      </ul>
+      <a class="btn" href="index.html#demo">Start free</a>
+    </div>
+
+    <div class="plan">
+      <h3>Enterprise</h3>
+      <div class="price">Custom</div>
+      <p>For high-volume &amp; regulated workloads</p>
+      <ul>
+        <li>Unlimited rows, volume pricing</li>
+        <li>Self-host / on-prem (single JS file)</li>
+        <li>OpenClaw dedicated batch runner</li>
+        <li>SSO / SAML, audit logs, SLA</li>
+        <li>Dedicated engineer onboarding</li>
+      </ul>
+      <a class="btn ghost" href="mailto:sales@csvmod.com">Talk to us</a>
+    </div>
+  </div>
+
+  <div class="note">Usage is measured on <b>delivered</b> rows only. Re-uploads, previews, and failed imports cost nothing — you only pay for clean data that hits your API.</div>
+
+  <h2>Comparison</h2>
+  <table>
+    <thead><tr><th></th><th>Flatfile</th><th>OneSchema</th><th>CsvMod</th></tr></thead>
+    <tbody>
+      <tr><td>Starts at</td><td>$400/mo (annual)</td><td>$600/mo</td><td><b>$0 / $99</b></td></tr>
+      <tr><td>Row pricing</td><td>$0.05–$0.20/row</td><td>Custom</td><td><b>4¢/row</b></td></tr>
+      <tr><td>Self-host</td><td>✗</td><td>✗</td><td><b>✓</b></td></tr>
+      <tr><td>AI mapping</td><td>✓</td><td>✓</td><td><b>✓ DeepSeek</b></td></tr>
+    </tbody>
+  </table>
+
+  <h2>FAQ</h2>
+  <h3>Do I pay for my end users' imports?</h3>
+  <p>Yes — that's the point of usage pricing, but only delivered rows count. At Pro the first 100k are included; 4¢/row after.</p>
+  <h3>Can I use my own AI key?</h3>
+  <p>Yes. Bring your DeepSeek key and CsvMod routes to it — useful for data residency or if you want DeepSeek's cache pricing on high volume.</p>
+  <h3>Do I have to host your cloud?</h3>
+  <p>No. The embed is a single JS file. Self-host it, or use our CDN. Batch automation via OpenClaw can run on your own infrastructure.</p>
+</div>
+
+<footer>
+  <div class="logo" style="font-weight:800;color:var(--text)">Csv<b style="color:var(--accent2)">Mod</b></div>
+  <p>Embeddable imports · <a href="index.html">Home</a> · <a href="docs.html">Docs</a> · © 2026 CsvMod</p>
+</footer>
+
+</body>
+</html>
