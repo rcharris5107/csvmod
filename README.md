@@ -1,3 +1,5 @@
+![Tests](https://img.shields.io/badge/tests-134%2F134-green) [![Live demo](https://img.shields.io/badge/demo-csvmod.com-blue)](https://csvmod.com) ![License](https://img.shields.io/badge/license-MIT-yellow)
+
 # CsvMod — embeddable CSV importer
 
 **One `<script>` tag. Messy CSV in. Clean JSON out.**
