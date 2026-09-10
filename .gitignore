@@ -1,0 +1,12 @@
+# marketing / listing collateral (not part of the product)
+listing.md
+flippa-description.md
+*.txt
+
+# OS junk
+.DS_Store
+Thumbs.db
+
+# debug scratch pages
+debug.html
+mini.html

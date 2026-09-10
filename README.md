@@ -1,4 +1,4 @@
-![Tests](https://img.shields.io/badge/tests-134%2F134-green) [![Live demo](https://img.shields.io/badge/demo-csvmod.com-blue)](https://csvmod.com) ![License](https://img.shields.io/badge/license-MIT-yellow)
+![Tests](https://img.shields.io/badge/tests-134%2F134-green) [![Live demo](https://img.shields.io/badge/demo-csvmod.com-blue)](https://csvmod.com) ![License](https://img.shields.io/badge/license-MIT-yellow) [![Buy the source](https://img.shields.io/badge/get%20the%20code-%2449-pink)](https://rcharris.gumroad.com/l/irlnw)
 
 # CsvMod — embeddable CSV importer
 
@@ -6,7 +6,11 @@
 
 CsvMod is an embeddable import widget: upload or paste CSV, auto-map columns (DeepSeek AI with a deterministic local fallback), review in a virtualized 60fps grid, and get clean, validated rows in your callback — or POSTed to your webhook.
 
+<<<<<<< HEAD
 [Live demo](https://csvmod.com) · [Docs](docs.html) · [Pricing](pricing.html)
+=======
+[Live demo](https://csvmod.com) · [Docs](docs.html) · [Pricing](pricing.html) · **Buy the full source: [$49 on Gumroad](https://rcharris.gumroad.com/l/irlnw)**
+>>>>>>> aab834f (Add Gumroad purchase links to banner + README)
 
 ## Screenshots
 

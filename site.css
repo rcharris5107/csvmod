@@ -118,6 +118,52 @@ section .sub { color: var(--mut); margin: 0 0 36px; max-width: 640px; }
 
 footer { border-top: 1px solid var(--line); padding: 34px 28px; color: var(--mut); font-size: 13px; text-align: center; }
 
+/* domain-for-sale banner */
+.sale-banner {
+  background: linear-gradient(135deg, #1a3a5c 0%, #0e141b 100%);
+  border-bottom: 2px solid var(--accent);
+  padding: 12px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  flex-wrap: wrap;
+  font-size: 14px;
+  position: relative;
+}
+.sale-banner .badge {
+  background: var(--accent);
+  color: #fff;
+  font-weight: 700;
+  font-size: 11px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border-radius: 4px;
+  white-space: nowrap;
+}
+.sale-banner span { color: var(--mut); }
+.sale-banner span strong { color: var(--text); }
+.sale-banner a.buy-btn {
+  background: var(--ok);
+  color: #000;
+  font-weight: 700;
+  font-size: 13px;
+  padding: 8px 18px;
+  border-radius: 6px;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: opacity .15s;
+}
+.sale-banner a.buy-btn:hover { opacity: .85; text-decoration: none; }
+.sale-banner .code-link {
+  color: var(--accent2);
+  font-size: 13px;
+  text-decoration: underline;
+  white-space: nowrap;
+}
+.sale-banner .code-link:hover { color: var(--text); }
+
 /* docs + pricing pages */
 .pg { max-width: 900px; margin: 0 auto; padding: 56px 24px; }
 .pg h1 { font-size: 34px; margin: 0 0 8px; }
